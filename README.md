@@ -1,4 +1,5 @@
-# Backend en Nest
+# Backend de WorlApp en NestJs
+1. Ejecutar el siguiente comando: 
 ``` docker compose -d```
 
-## Copiar el `.env.template` y renombrarlo a `.env`
+2. Copiar el `.env.template` y renombrarlo a `.env`
