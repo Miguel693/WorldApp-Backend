@@ -14,10 +14,9 @@ import { LoginResponse } from './interfaces/loginResponse';
 export class AuthService {
 
   constructor(
-    @InjectModel( User.name ) private userModel : Model<User>,
+    @InjectModel( User.name )
+    private userModel : Model<User>,
     private jwtService: JwtService
-
-
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User>{
@@ -25,10 +24,9 @@ export class AuthService {
       const { password, ...userData } = createUserDto;
 
       const newUser = new this.userModel({
-        //*Encriptacion de contraseña
-        password: bcrypt.hashSync(password, 10),
+        password: bcrypt.hashSync( password, 10 ),
         ...userData
-        });
+      });
 
       await newUser.save();
       const {password:_, ...user} = newUser.toJSON();
@@ -57,22 +55,22 @@ export class AuthService {
 
   }
 
-  async login( loginDto : LoginDto) :  Promise<LoginResponse>{
-    const {email , password} = loginDto;
+  async login( loginDto: LoginDto ):Promise<LoginResponse> {
 
-    const user = await this.userModel.findOne({email});
+    const { email, password } = loginDto;
 
-    if(!user)
-      throw new UnauthorizedException('Not valid credentials - email');
+    const user = await this.userModel.findOne({ email });
+    if (( !user ) ||( !bcrypt.compareSync( password, user.password ) )) 
+      throw new UnauthorizedException('Not valid credentials');
+    
+    const { password:_, ...rest  } = user.toJSON();
 
-    if(!bcrypt.compareSync(password , user.password))
-      throw new UnauthorizedException('Not valid credentials - password');
 
-    const { password:_, ...userData} = user.toJSON();
     return {
-      user: userData,
-      token : this.getJwtToken({ id: user.id }),
-    };
+      user: rest,
+      token: this.getJwtToken({ id: user.id }),
+    }
+
   }
 
   findAll() : Promise<User[]>{
@@ -82,7 +80,6 @@ export class AuthService {
   async findUserById(id : string){
     const user = await this.userModel.findById( id );
     const { password, ...rest} = user.toJSON();
-
     return rest;
   }
 
@@ -98,7 +95,7 @@ export class AuthService {
     return `This action removes a #${id} auth`;
   }
 
-  getJwtToken( payload : JwtPayload){
+  getJwtToken( payload: JwtPayload ) {
     const token = this.jwtService.sign(payload);
     return token;
   }

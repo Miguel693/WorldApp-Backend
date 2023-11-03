@@ -30,25 +30,28 @@ export class AuthController {
     return this.authService.register(registerDto);
   }
 
-
-  //Genera un nuevo JWT Token
-  @UseGuards(AuthGuard)
-  @Get('check-token')
-  checkToken(@Request() req : Request) : LoginResponse{
-    const user = req['user'] as User;
-
-    return{
-      user,
-      token: this.authService.getJwtToken({id: user._id}),
-    }
-  }
-
   @UseGuards( AuthGuard )
   @Get()
   findAll( @Request() req: Request) {
-    const user = req['user'];
+    // const user = req['user'];
     return this.authService.findAll();
   }
+
+  //Genera un nuevo JWT Token
+  @UseGuards( AuthGuard )
+  @Get('check-token')
+  checkToken( @Request() req: Request ): LoginResponse {
+
+    const user = req['user'] as User;
+
+    return {
+      user : user,
+      token: this.authService.getJwtToken({ id: user._id })
+    };
+
+  }
+
+
 
   @Get(':id')
   findOne(@Param('id') id: string) {

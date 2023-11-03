@@ -12,7 +12,7 @@ import { ConfigModule } from '@nestjs/config';
   imports:[
     ConfigModule.forRoot(),
 
-    MongooseModule.forFeature([{name: User.name, schema: UserSchema}]),
+    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
 
     JwtModule.register({
       global: true,
