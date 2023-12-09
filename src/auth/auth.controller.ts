@@ -55,16 +55,23 @@ export class AuthController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.authService.findOne(+id);
+    return this.authService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateAuthDto: UpdateAuthDto) {
-    return this.authService.update(+id, updateAuthDto);
+    console.log(id);
+    return this.authService.update(id, updateAuthDto);
   }
 
-  @Delete(':id')
+  @Delete('del/:id')
   remove(@Param('id') id: string) {
-    return this.authService.remove(+id);
+    console.log(id);
+    return this.authService.remove(id);
+  }
+
+  @Patch(':id')
+  addPin(@Param('id') id : string, @Body() UpdateAuthDto: UpdateAuthDto){
+
   }
 }

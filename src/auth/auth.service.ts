@@ -60,9 +60,9 @@ export class AuthService {
     const { email, password } = loginDto;
 
     const user = await this.userModel.findOne({ email });
-    if (( !user ) ||( !bcrypt.compareSync( password, user.password ) )) 
+    if (( !user ) ||( !bcrypt.compareSync( password, user.password ) ))
       throw new UnauthorizedException('Not valid credentials');
-    
+
     const { password:_, ...rest  } = user.toJSON();
 
 
@@ -83,16 +83,17 @@ export class AuthService {
     return rest;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} auth`;
   }
 
-  update(id: number, updateAuthDto: UpdateAuthDto) {
-    return `This action updates a #${id} auth`;
+  update(id: string, updateAuthDto: UpdateAuthDto) {
+    return this.userModel.findByIdAndUpdate(id, updateAuthDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
+  remove(id: string) {
+    return this.userModel.findByIdAndDelete(id);
+    // return `This action removes a #${id} auth`;
   }
 
   getJwtToken( payload: JwtPayload ) {
