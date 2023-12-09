@@ -6,7 +6,7 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
 import { Roles } from "../interfaces/roles.enum";
-import { Pin } from "../interfaces/pines.interface";
+import { Marker } from "../interfaces/marker.interface";
 
 @Schema()
 export class User {
@@ -28,7 +28,7 @@ export class User {
   roles : Roles[];
 
   @Prop()
-  pines : Pin[];
+  pines : Marker[];
 }
 
 export const UserSchema = SchemaFactory.createForClass( User );
