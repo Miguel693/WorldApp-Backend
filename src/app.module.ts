@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { MarkerModule } from './marker/marker.module';
 
 @Module({
   imports: [
@@ -12,9 +13,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 
     AuthModule,
 
+
+    MarkerModule,
+
   ],
-  controllers: [],
-  providers: [],
+
 })
 export class AppModule {
 
