@@ -19,7 +19,7 @@ export class MarkerController {
   }
 
   @Patch(':id')
-    update(@Param('id') _id : string, updateMarkerDto : UpdateMarkerDto){
+  update(@Param('id') _id : string, @Body() updateMarkerDto : UpdateMarkerDto){
     return this.markerService.update(_id,updateMarkerDto);
   }
 }
