@@ -19,6 +19,9 @@ export class Marker {
   @Prop({ required: true, type: String})
   description ?: string;
 
+  @Prop({required : true, type: String})
+  user_id : string;
+
 
 }
 
