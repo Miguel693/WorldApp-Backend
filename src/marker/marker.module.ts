@@ -14,7 +14,7 @@ import { JwtModule } from '@nestjs/jwt';
 
   ],
   controllers :[ MarkerController],
-  providers : [MarkerService],
+  providers : [ MarkerService ],
 })
 export class MarkerModule {
 
