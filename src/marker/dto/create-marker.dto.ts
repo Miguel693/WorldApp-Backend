@@ -12,4 +12,6 @@ export class CreateMarkerDto {
   longitude : number;
   @IsString()
   description : string;
+  @IsString()
+  user_id : string;
 }
