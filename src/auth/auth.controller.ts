@@ -50,7 +50,12 @@ export class AuthController {
     };
 
   }
-
+  @UseGuards( AuthGuard )
+  @Get('get-id')
+  getId( @Request() req: Request ): string {
+    const user = req['user'] as User;
+    return user._id;
+  }
 
 
   @Get(':id')
@@ -60,18 +65,15 @@ export class AuthController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateAuthDto: UpdateAuthDto) {
-    console.log(id);
+    // console.log(id);
     return this.authService.update(id, updateAuthDto);
   }
 
   @Delete('del/:id')
   remove(@Param('id') id: string) {
-    console.log(id);
+    // console.log(id);
     return this.authService.remove(id);
   }
 
-  @Patch(':id')
-  addPin(@Param('id') id : string, @Body() UpdateAuthDto: UpdateAuthDto){
 
-  }
 }
