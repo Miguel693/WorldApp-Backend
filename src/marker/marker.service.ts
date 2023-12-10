@@ -1,8 +1,8 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
-import { CreateMarkerDto } from './dto/create-marker.dto';
+import { Injectable, BadRequestException, Delete, Param } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Marker } from './entities/marker.entity';
 import { Model } from 'mongoose';
+import { UpdateMarkerDto, CreateMarkerDto } from './dto';
 
 @Injectable()
 export class MarkerService {
@@ -14,9 +14,9 @@ export class MarkerService {
 
   async create(createMarkerDto : CreateMarkerDto){
     try{
-      const { name, latitude, longitude, description} = createMarkerDto;
+      const { name, latitude, longitude, description, user_id} = createMarkerDto;
       //! not working with spread operator
-      const newMarker = new this.markerModel({ name: name, description: description, latitude: latitude, longitude: longitude})
+      const newMarker = new this.markerModel({ name, description, latitude,longitude, user_id})
       await newMarker.save();
 
       const marker = newMarker.toJSON();
@@ -28,4 +28,15 @@ export class MarkerService {
     }
 
   }
+
+  remove( id : string ){
+    return this.markerModel.findByIdAndDelete(id);
+  }
+
+  update( id : string, updateMarkerDto : UpdateMarkerDto){
+    console.log(id);
+    return this.markerModel.findByIdAndUpdate(id,updateMarkerDto);
+  }
+
+
 }
