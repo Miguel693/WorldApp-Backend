@@ -1,12 +1,5 @@
-/**
- ** Esta clase tiene los datos que se guardan en la base de datos
- *
- *
- */
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-
 import { Roles } from "../interfaces/roles.enum";
-import { Marker } from "../interfaces/marker.interface";
 
 @Schema()
 export class User {
@@ -26,9 +19,6 @@ export class User {
 
   @Prop({ type: [String], default: "user"})
   roles : Roles[];
-
-  @Prop()
-  pines : Marker[];
 }
 
 export const UserSchema = SchemaFactory.createForClass( User );
