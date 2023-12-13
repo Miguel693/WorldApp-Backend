@@ -14,7 +14,7 @@ export class MarkerController {
 
   @Delete('del/:id')
   remove(@Param('id') id: string) {
-    console.log(id);
+    // console.log(id);
     return this.markerService.remove(id);
   }
 

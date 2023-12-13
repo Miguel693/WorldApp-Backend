@@ -34,7 +34,7 @@ export class MarkerService {
   }
 
   update( id : string, updateMarkerDto : UpdateMarkerDto){
-    console.log(id);
+    // console.log(id);
     return this.markerModel.findByIdAndUpdate(id,updateMarkerDto);
   }
 
